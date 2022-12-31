@@ -1,0 +1,24 @@
+class Solution {
+private:
+    void combination(int ind,int k,int n,vector<vector<int>>&result,vector<int>&temp){
+        if(k<0 || n<0)return;
+        if(k==0 && n==0){
+            result.push_back(temp);
+            return;
+        }
+
+        for(int i=ind;i<=9;i++){
+            temp.push_back(i);
+            combination(i+1,k-1,n-i,result,temp);
+            temp.pop_back();
+        }
+    }
+public:
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<vector<int>>result;
+        vector<int>temp;
+        combination(1,k,n,result,temp);
+        return result;
+        
+    }
+};
