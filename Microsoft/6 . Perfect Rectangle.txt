@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool isRectangleCover(vector<vector<int>>& rectangles) {
+        unordered_map<long long,int>mpp;
+        long long N = 1000000;
+
+        for(vector<int>& x:rectangles){
+            int x1 = x[0];
+            int y1 = x[1];
+            int x2 = x[2];
+            int y2 = x[3];
+
+            mpp[x1*N+y1]++;
+            mpp[x1*N+y2]--;
+            mpp[x2*N+y1]--;
+            mpp[x2*N+y2]++;
+        }
+
+        int new_mark = 0;
+        for(auto ptr=mpp.begin();ptr!=mpp.end();ptr++){
+            if(ptr->second!=0){
+                if(abs(ptr->second)!=1)return false;
+                new_mark++;
+            }
+        }
+        return new_mark==4;
+    }
+};
