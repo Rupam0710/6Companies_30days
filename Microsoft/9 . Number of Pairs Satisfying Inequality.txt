@@ -1,0 +1,26 @@
+// Solve the inequality you get
+// (nums1[i]-nums2[i])-(nums1[j]-nums2[j]) <= k,
+// to handle duplicate cases in ordered set you have to write greater_equal
+
+
+
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+  
+#define ordered_set tree<int, null_type,greater_equal<int>, rb_tree_tag,tree_order_statistics_node_update>
+  
+class Solution {
+public:
+    long long numberOfPairs(vector<int>& nums1, vector<int>& nums2, int k) {
+        int n = nums1.size();
+        long long res = 0;
+        ordered_set s;
+        for(int i=n-1; i>=0; i--){
+            int t = s.order_of_key(nums1[i]-nums2[i]-k-1);
+            res += t;
+            s.insert(nums1[i]-nums2[i]);
+        }
+        return res;
+    }
+};
