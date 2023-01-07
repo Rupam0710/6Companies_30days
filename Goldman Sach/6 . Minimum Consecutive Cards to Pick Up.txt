@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int minimumCardPickup(vector<int>& cards) {
+        map<int,int>mpp;
+        int mini = INT_MAX;
+
+        for(int i=0;i<cards.size();i++){
+            if(!mpp.empty() && mpp.find(cards[i])!=mpp.end()){
+                mini =min(mini,i-mpp[cards[i]]+1);
+            }
+            mpp[cards[i]]=i;
+        }
+        return (mini==INT_MAX)?-1:mini;
+    }
+};
