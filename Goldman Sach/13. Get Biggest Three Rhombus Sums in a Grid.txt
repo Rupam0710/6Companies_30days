@@ -1,0 +1,56 @@
+class Solution {
+public:
+#define ll long long
+
+    int n,m;
+    bool check(pair<int,int>a){
+        return (a.first>=0 && a.first<n && a.second>=0 && a.second<m);
+    }
+    vector<int> getBiggestThree(vector<vector<int>>& g) {
+        set<ll>s;
+        n=g.size();
+        m=g[0].size();
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                s.insert(g[i][j]);
+            }
+        }
+        for(int l=1;l<=50;l++){
+            for(int i=0;i<n;i++){
+                for(int j=0;j<m;j++){
+                    pair<int,int>a={i-l,j};
+                    pair<int,int>b={i,j-l};
+                    pair<int,int>c={i+l,j};
+                    pair<int,int>d={i,j+l};
+
+                    if(check(a)==false && check(b)==false &&check(c)==false &&check(d)==false)goto end;
+                     if(check(a)&&check(b)&&check(c)&&check(d))  {
+                         ll total =(ll)g[i-l][j]+g[i+l][j]+g[i][j-l]+g[i][j+l];
+                         for(int k=1;k<=l-1;k++) total+=(ll)g[i-k][j-l+k];
+                         for(int k=1;k<=l-1;k++) total+=(ll)g[i-k][j+l-k];
+                         for(int k=1;k<=l-1;k++) total+=(ll)g[i+k][j+l-k];
+                         for(int k=1;k<=l-1;k++) total+=(ll)g[i+k][j-l+k]; 
+                         s.insert(total);
+                     }  
+                }
+            }
+        }end:
+
+        vector<int>ans;
+        for(auto i:s)ans.push_back(i);
+        if(ans.size()<=3){
+            reverse(ans.begin(),ans.end());
+            return ans;
+        }
+
+        vector<int>ok;
+        ok.push_back(ans.back());
+        ans.pop_back();
+        ok.push_back(ans.back());
+        ans.pop_back();
+        ok.push_back(ans.back());
+        
+        return ok;
+        
+    }
+};
