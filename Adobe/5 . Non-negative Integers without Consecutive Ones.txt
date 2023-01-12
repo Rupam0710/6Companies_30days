@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int findIntegers(int n) {
+        int f[31]; //Binary representation of 10^9 will be have at most 31 characters
+        f[0]=1;
+        f[1]=2;
+        for(int i=2;i<31;i++)f[i]=f[i-1]+f[i-2];
+
+        int ans =0;
+        int k =30;//most signifant bit
+        int pre_bit=0;
+        
+        // moving from most significant bit to least significant bit
+        while(k>=0) {
+            //if the most signifant bit is 1
+            if(n&(1<<k))//binary and{
+                ans+=f[k];
+                if(pre_bit==1)return ans;//if the previous bit is 1, we return as we cant generate any more nos
+                pre_bit=1;
+            }else pre_bit=0;
+            --k;
+        }
+        return ans+1;
+    }
+};
