@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<bool>prime;
+    void SieveofEratosthenes(int n){
+        for(int p=2;p*p<=n;p++){
+            if(prime[p]==true){
+                for(int i=p*p;i<=n;i+=p)prime[i]=false;
+            }
+        }
+    }
+    vector<int> closestPrimes(int left, int right) {
+        prime.resize(right+1,1);
+        SieveofEratosthenes(right+1);
+        prime[0]=0;
+        prime[1]=0;
+        int prev=-1;
+        int ans =INT_MAX;
+        vector<int>res(2,-1);
+
+        for(int p=left;p<=right;p++){
+            if(prime[p]){
+                if(prev==-1)prev=p;
+                else if(p-prev<ans){
+                    res[0]=prev;
+                    res[1]=p;
+                    ans=p-prev;
+                    
+                }
+                prev=p;
+            }
+        }
+        return res;
+        
+    }
+};

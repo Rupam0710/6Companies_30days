@@ -1,0 +1,30 @@
+class Solution {
+private:
+    static bool cmp(pair<string,int>&a, pair<string,int>&b){
+        if(a.second==b.second){
+            int val = a.first.compare(b.first);
+            if(val<0)return a.second;
+            else  b.second;
+        }
+        return a.second>b.second;
+    }    
+public:
+    vector<string> topKFrequent(vector<string>& words, int k) {
+        //storing the words along with there frequency in map
+        unordered_map<string,int>mp;
+        for(auto it:words)mp[it]++;
+        
+        //transfering the contents of map into vector and sort it in the lexicographical way
+        vector<pair<string,int>>temp;
+        for(auto& it:mp)temp.push_back(it);
+        sort(temp.begin(),temp.end(),cmp);
+        
+        //storing the top k values in the result
+        vector<string>result;
+        for(int i=0;i<k;i++)result.push_back(temp[i].first);
+        
+        //return the result
+        return result;
+
+    }
+};
