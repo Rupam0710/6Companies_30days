@@ -1,0 +1,12 @@
+class Solution {
+public
+    vectorint sortArray(vectorint& nums) {
+        multisetintst;
+        vectorintres;
+
+        for(auto itnums)st.insert(it);
+        for(auto itst)res.push_back(it);
+
+        return res;
+    }
+};
