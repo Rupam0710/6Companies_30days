@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int totalFruit(vector<int>& fruits) {
+        int last_fruit = -1;
+        int second_last_fruit = -1;
+        int last_fruit_count=0;
+        int currentmax=0;
+        int maxi=0;
+
+        for(auto i:fruits){
+            if(i==last_fruit || i== second_last_fruit)currentmax += 1;
+            else currentmax = last_fruit_count+1;
+
+            if(i==last_fruit)last_fruit_count+=1;
+            else last_fruit_count=1;
+
+            if(i!=last_fruit){
+                second_last_fruit=last_fruit;
+                last_fruit=i;
+            }
+
+            maxi = max(currentmax,maxi);
+        }
+        return maxi;
+
+    }
+};
