@@ -1,0 +1,38 @@
+class Solution {
+    int finalcompatibility;
+    int taken[]=new int[8];
+    int totalstudents,totalquestions;
+    public int maxCompatibilitySum(int[][] students, int[][] mentors) {
+        this.finalcompatibility=0;
+        int m = students.length;
+        int n = students[0].length;
+        this.totalstudents = m;
+        this.totalquestions = n;
+        Arrays.fill(taken,0);
+        getmaxcomp(students,mentors,0,0);
+        return this.finalcompatibility;
+    }
+
+    private void getmaxcomp(int[][] students, int[][] mentors,int m ,int comp){
+        if(m>=this.totalstudents){
+            this.finalcompatibility = Math.max(comp,this.finalcompatibility);
+        }
+
+        for(int i=0;i<this.totalstudents;i++){
+            if(taken[i]==0){
+                taken[i]=1;
+                int tempcomp = getcomp(students[m],mentors[i]);
+                getmaxcomp(students,mentors,m+1,comp+tempcomp);
+                taken[i]=0;
+            }
+        }
+    }
+
+    private int getcomp(int students[],int mentors[]){
+        int count=0;
+        for(int i=0;i<students.length;i++){
+            if(students[i]==mentors[i])count++;
+        }
+        return count;
+    }
+}
