@@ -1,0 +1,20 @@
+class Solution {
+private:
+    int helper(string s, unordered_set<string>& st){
+        int maxi = 0;
+        for(int i=1;i<=s.size();i++){
+            string candidate = s.substr(0,i-0);
+            if(st.find(candidate)==st.end()){
+                st.insert(candidate);
+                maxi = max(maxi,1+helper(s.substr(i,s.size()-i),st));
+                st.erase(candidate);
+            }            
+        }
+        return maxi;
+    }
+public:
+    int maxUniqueSplit(string s) {
+        unordered_set<string>st;
+        return helper(s,st);
+    }
+};
